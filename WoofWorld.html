@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WoofWorld - Vida Saludable para Perros</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Barra de Navegación */
+.navbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.container-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    animation: bounceIn 0.6s ease;
+}
+
+.logo-icon {
+    font-size: 2rem;
+    animation: rotate 3s infinite;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #ffd700;
+    transform: translateY(-2px);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ffd700;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* Sección Hero */
+.hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 4rem 2rem;
+    min-height: 600px;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: slideInLeft 0.8s ease;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    color: #667eea;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.hero-image {
+    animation: slideInRight 0.8s ease;
+}
+
+.hero-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.hero-image img:hover {
+    transform: scale(1.05);
+}
+
+/* Botón Principal con Animaciones */
+.btn-principal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-principal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.btn-principal:hover::before {
+    left: 100%;
+}
+
+.btn-principal:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.btn-principal:active {
+    transform: translateY(-1px);
+}
+
+.btn-text {
+    display: inline-block;
+}
+
+.btn-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.btn-principal:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+/* Secciones */
+.section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.section-alt {
+    background: #f8f9ff;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 3rem;
+    animation: fadeInDown 0.8s ease;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+/* Contenedor de Tarjetas */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    animation: fadeInUp 0.8s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.card h3 {
+    color: #667eea;
+    padding: 1.5rem 1.5rem 0.5rem;
+    font-size: 1.5rem;
+}
+
+.card p {
+    padding: 0.5rem 1.5rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.card-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem 1.5rem;
+    background: #f5f5f5;
+    color: #764ba2;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Grid de Salud */
+.health-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.health-item {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    animation: fadeInUp 0.8s ease;
+}
+
+.health-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+}
+
+.health-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+
+.health-item h3 {
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.health-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Contacto */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+/* Footer */
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.footer p {
+    margin: 0.5rem 0;
+}
+
+/* Animaciones */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 2rem 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-principal {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 1.3rem;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .health-icon {
+        font-size: 2.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <nav class="navbar">
+        <div class="container-nav">
+            <div class="logo">
+                <span class="logo-icon">🐾</span>
+                <h1>WoofWorld</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#nutricion" class="nav-link">Nutrición</a></li>
+                <li><a href="#ejercicio" class="nav-link">Ejercicio</a></li>
+                <li><a href="#salud" class="nav-link">Salud</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Inicio (Hero) -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Bienvenido a WoofWorld</h2>
+            <p class="hero-subtitle">Tu guía completa para una vida saludable y feliz de tu perro</p>
+            <button class="btn-principal" onclick="scrollToSection('nutricion')">
+                <span class="btn-text">Explorar Ahora</span>
+                <span class="btn-icon">→</span>
+            </button>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1633722715463-d30628519d59?w=500&h=500&fit=crop" alt="Perro feliz">
+        </div>
+    </section>
+
+    <!-- Sección de Nutrición -->
+    <section id="nutricion" class="section">
+        <h2 class="section-title">Nutrición Saludable</h2>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4d4b3f4?w=400&h=300&fit=crop" alt="Comida para perros">
+                </div>
+                <h3>Dieta Balanceada</h3>
+                <p>Una alimentación balanceada es fundamental. Incluye proteínas, grasas saludables y carbohidratos en las proporciones correctas.</p>
+                <div class="card-stats">
+                    <span>✓ Proteína: 18-25%</span>
+                    <span>✓ Grasa: 10-15%</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=400&h=300&fit=crop" alt="Agua fresca">
+                </div>
+                <h3>Hidratación</h3>
+                <p>El agua es esencial. Tu perro necesita acceso a agua fresca y limpia durante todo el día. Aproximadamente 50-60ml por kg de peso.</p>
+                <div class="card-stats">
+                    <span>✓ Agua diaria</span>
+                    <span>✓ Agua limpia</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1608183185892-16d0f36efdfe?w=400&h=300&fit=crop" alt="Frutas y verduras">
+                </div>
+                <h3>Alimentos Naturales</h3>
+                <p>Las frutas y verduras son excelentes complementos. Manzana, zanahoria y calabaza son opciones seguras y nutritivas.</p>
+                <div class="card-stats">
+                    <span>✓ Seguras</span>
+                    <span>✓ Nutritivas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Ejercicio -->
+    <section id="ejercicio" class="section section-alt">
+        <h2 class="section-title">Ejercicio Regular</h2>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1716869db63191-f78ab2567a67?w=400&h=300&fit=crop" alt="Paseos">
+                </div>
+                <h3>Paseos Diarios</h3>
+                <p>Los paseos son esenciales para la salud física y mental. Realiza al menos 2-3 paseos diarios según la edad y raza.</p>
+                <div class="card-stats">
+                    <span>✓ 30-60 min diarios</span>
+                    <span>✓ Actividad moderada</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1633722715463-d30628519d59?w=400&h=300&fit=crop" alt="Juego">
+                </div>
+                <h3>Juego y Diversión</h3>
+                <p>El juego interactivo fortalece el vínculo contigo y mantiene a tu perro mentalmente activo y estimulado.</p>
+                <div class="card-stats">
+                    <span>✓ Juguetes seguros</span>
+                    <span>✓ Tiempo de calidad</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1633722715463-d30628519d59?w=400&h=300&fit=crop" alt="Natación">
+                </div>
+                <h3>Actividades Variadas</h3>
+                <p>La natación, agility y otras actividades son excelentes para el fitness. Variar las actividades evita el aburrimiento.</p>
+                <div class="card-stats">
+                    <span>✓ Bajo impacto</span>
+                    <span>✓ Diversión garantizada</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Salud -->
+    <section id="salud" class="section">
+        <h2 class="section-title">Cuidados de Salud</h2>
+        <div class="health-grid">
+            <div class="health-item">
+                <div class="health-icon">💉</div>
+                <h3>Vacunación</h3>
+                <p>Mantén las vacunas al día según el calendario recomendado por tu veterinario.</p>
+            </div>
+
+            <div class="health-item">
+                <div class="health-icon">🦷</div>
+                <h3>Higiene Dental</h3>
+                <p>Cepilla los dientes de tu perro regularmente para prevenir enfermedades bucales.</p>
+            </div>
+
+            <div class="health-item">
+                <div class="health-icon">🏥</div>
+                <h3>Chequeos Veterinarios</h3>
+                <p>Visita al veterinario al menos una vez al año para revisiones preventivas.</p>
+            </div>
+
+            <div class="health-item">
+                <div class="health-icon">🪲</div>
+                <h3>Control de Parásitos</h3>
+                <p>Prevención de pulgas, garrapatas y desparasitación interna según el protocolo.</p>
+            </div>
+
+            <div class="health-item">
+                <div class="health-icon">✨</div>
+                <h3>Higiene General</h3>
+                <p>Baños regulares, corte de uñas y limpieza de oídos son parte del cuidado esencial.</p>
+            </div>
+
+            <div class="health-item">
+                <div class="health-icon">❤️</div>
+                <h3>Salud Mental</h3>
+                <p>El amor, la atención y la socialización son cruciales para el bienestar emocional.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto" class="section section-alt">
+        <h2 class="section-title">Contacta con Nosotros</h2>
+        <div class="contact-container">
+            <form class="contact-form">
+                <input type="text" placeholder="Tu nombre" required>
+                <input type="email" placeholder="Tu email" required>
+                <textarea placeholder="Tu mensaje" rows="5" required></textarea>
+                <button type="submit" class="btn-principal">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 WoofWorld - Vida Saludable para Perros. Todos los derechos reservados.</p>
+        <p>Hecho con ❤️ para los amigos de cuatro patas</p>
+    </footer>
+
+    <script>
+// Desplazamiento suave a secciones
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Navegación con scroll suave
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+
+// Animación de aparición al hacer scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observar elementos animables
+document.querySelectorAll('.card, .health-item, .section-title').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
+
+// Efectos interactivos en botones
+document.querySelectorAll('.btn-principal').forEach(button => {
+    button.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px)';
+    });
+    
+    button.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+    
+    button.addEventListener('click', function(e) {
+        // Efecto ripple
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
+// Validación de formulario
+const form = document.querySelector('.contact-form');
+if (form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Obtener valores
+        const name = this.querySelector('input[type="text"]').value;
+        const email = this.querySelector('input[type="email"]').value;
+        const message = this.querySelector('textarea').value;
+        
+        // Validación simple
+        if (name.trim() && email.trim() && message.trim()) {
+            // Simular envío
+            alert(`¡Gracias ${name}! Tu mensaje ha sido enviado correctamente.\nNos pondremos en contacto pronto.`);
+            this.reset();
+        } else {
+            alert('Por favor, completa todos los campos.');
+        }
+    });
+}
+
+// Menú hamburguesa (para móvil)
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+if (hamburger) {
+    hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('mobile-menu');
+    });
+    
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('mobile-menu');
+        });
+    });
+}
+
+// Efecto parallax en hero
+window.addEventListener('scroll', () => {
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        const scrollPosition = window.pageYOffset;
+        hero.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+    }
+});
+
+// Animación de contador para estadísticas
+function animateCounters() {
+    const cards = document.querySelectorAll('.card-stats');
+    
+    cards.forEach(card => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease';
+                }
+            });
+        });
+        observer.observe(card);
+    });
+}
+
+animateCounters();
+
+// Cambiar color de navbar al hacer scroll
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.pageYOffset > 50) {
+        navbar.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.3)';
+    } else {
+        navbar.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+    }
+});
+
+// Inicializar tooltips
+document.querySelectorAll('.health-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.style.zIndex = '10';
+    });
+    
+    item.addEventListener('mouseleave', function() {
+        this.style.zIndex = '1';
+    });
+});
+
+console.log('🐾 ¡Bienvenido a WoofWorld! 🐾');
+console.log('Página de vida saludable para perros cargada correctamente.');
+    </script>
+</body>
+</html>
